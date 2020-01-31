@@ -2,7 +2,7 @@ package Impl.ExtrudeImpl;
 
 import Config.PrintConstants;
 import Framework.Position;
-import Framework.Variables;
+import Framework.Util;
 import Framework.interfaces.Extrude;
 import Framework.interfaces.ExtrudeAmount;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class FlexExtrudeImpl implements Extrude {
     ArrayList<String> path = new ArrayList<>();
-    Variables var = Variables.getInstance();
+    Util var = Util.getInstance();
     ExtrudeAmount ea;
 
     public FlexExtrudeImpl(){

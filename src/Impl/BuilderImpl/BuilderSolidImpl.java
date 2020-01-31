@@ -3,7 +3,7 @@ package Impl.BuilderImpl;
 import Config.PrintConstants;
 import Framework.Position;
 import Impl.ExtrudeImpl.SolidExtrudeImpl;
-import Framework.Variables;
+import Framework.Util;
 import Framework.interfaces.Builder;
 import Framework.interfaces.Extrude;
 
@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class BuilderSolidImpl implements Builder {
     private ArrayList<String> positions = new ArrayList<>();
     private Extrude extrude;
-    private Variables var = Variables.getInstance();
+    private Util var = Util.getInstance();
 
     public BuilderSolidImpl(){}
 

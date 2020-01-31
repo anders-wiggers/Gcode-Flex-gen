@@ -1,7 +1,7 @@
 package Impl.ExtrudeImpl;
 
 import Framework.Position;
-import Framework.Variables;
+import Framework.Util;
 import Framework.interfaces.Extrude;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import Framework.interfaces.ExtrudeAmount;
 
 public class SolidExtrudeImpl implements Extrude {
     ArrayList<String> path = new ArrayList<>();
-    Variables var = Variables.getInstance();
+    Util var = Util.getInstance();
 
     ExtrudeAmount ea;
 

@@ -1,17 +1,17 @@
 package Framework;
 
-public class Variables {
-    private static Variables var;
+public class Util {
+    private static Util var;
     private double extrudedSoFar;
 
-    private Variables(){
+    private Util(){
         extrudedSoFar = 0;
     }
 
-    public static Variables getInstance() {
+    public static Util getInstance() {
         {
             if (var==null)
-                var = new Variables();
+                var = new Util();
             return var;
         }
     }
@@ -31,5 +31,20 @@ public class Variables {
 
     public String generateGoToPoint(Position p, double speed){
         return "G0 X" + p.getX() + " Y" +p.getY() + " Z" + p.getZ() + " F" + speed;
+    }
+
+    public String binder(Position p1, Position p2){
+        String movement;
+        if ( p1.getX() == p2.getX() ) {
+            String distance = "" + (p2.getY() - p1.getY());
+            movement = "G1 Y" + p2.getY() + " E" + distance;
+        }
+        else {
+            String distance = "" + (p2.getX() - p1.getX());
+            movement = "G1 X" + p2.getX() + " E" + distance;
+        }
+
+
+        return movement;
     }
 }
