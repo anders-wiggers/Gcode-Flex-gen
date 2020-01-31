@@ -1,17 +1,25 @@
-package Impl;
+package Impl.ExtrudeImpl;
 
 import Config.PrintConstants;
-import interfaces.Extrude;
-import sun.security.util.Length;
+import Framework.Position;
+import Framework.Variables;
+import Framework.interfaces.Extrude;
+import Framework.interfaces.ExtrudeAmount;
 
 import java.util.ArrayList;
 
 public class FlexExtrudeImpl implements Extrude {
     ArrayList<String> path = new ArrayList<>();
     Variables var = Variables.getInstance();
+    ExtrudeAmount ea;
+
+    public FlexExtrudeImpl(){
+        ea = new ExtrudeAmountProsaI3MK3();
+    }
 
     @Override
     public String[] GenerateLayer(Position start, double length, double width, boolean first) {
+
         String speed;
         if(first){
             speed = "F300";
@@ -20,27 +28,22 @@ public class FlexExtrudeImpl implements Extrude {
         }
 
         if( width < 2 * PrintConstants.NOZZLE_WIDTH ){
-            var.addToLength(length);
-            String movment = "G1 X" + (start.getX() + length)+ " E" + var.getExtrudedSoFar();
+            String movment = "G1 X" + (start.getX() + length)+ " E" + ea.CalculateExtrude(length);
             path.add(movment);
         } else {
             if (start.getX() + length > 180) {
                 System.out.println("Out of bounds");
             } else {
-                var.addToLength(length);
-                String movment = "G1 X" + (start.getX() + length) + " "+ speed + " E" + var.getExtrudedSoFar();
+                String movment = "G1 X" + (start.getX() + length) + " "+ speed + " E" + ea.CalculateExtrude(length);
                 path.add(movment);
 
-                var.addToLength(PrintConstants.FILAMENT_SIZE);
-                movment = "G1 Y" + (start.getY() + PrintConstants.NOZZLE_WIDTH) + " E" + var.getExtrudedSoFar();
+                movment = "G1 Y" + (start.getY() + PrintConstants.NOZZLE_WIDTH) + " E" + ea.CalculateExtrude(PrintConstants.FILAMENT_SIZE);
                 path.add(movment);
 
-                var.addToLength(length);
-                movment = "G1 X" + start.getX() + " E" + var.getExtrudedSoFar();
+                movment = "G1 X" + start.getX() + " E" + ea.CalculateExtrude(length);
                 path.add(movment);
 
-                var.addToLength(PrintConstants.FILAMENT_SIZE);
-                movment = "G1 Y" + (start.getY() + (PrintConstants.NOZZLE_WIDTH * 2)) + " E" + var.getExtrudedSoFar();
+                movment = "G1 Y" + (start.getY() + (PrintConstants.NOZZLE_WIDTH * 2)) + " E" + ea.CalculateExtrude(PrintConstants.FILAMENT_SIZE);
                 path.add(movment);
 
                 Position p = new Position(start.getX(), var.round(start.getY() + PrintConstants.NOZZLE_WIDTH * 2), start.getZ());
@@ -48,8 +51,11 @@ public class FlexExtrudeImpl implements Extrude {
                 return GenerateLayer(p, length, width - 2 * PrintConstants.NOZZLE_WIDTH, first);
             }
         }
+        String[] returnValues = path.toArray(new String[0]);
 
-        return path.toArray(new String[0]);
+        path.clear();
+
+        return returnValues;
     }
 
 }

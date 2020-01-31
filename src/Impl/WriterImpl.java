@@ -1,6 +1,6 @@
 package Impl;
 
-import interfaces.Writer;
+import Framework.interfaces.Writer;
 import java.io.*;
 
 

@@ -1,6 +1,6 @@
-package interfaces;
+package Framework.interfaces;
 
-import Impl.Position;
+import Framework.Position;
 
 public interface Extrude {
 

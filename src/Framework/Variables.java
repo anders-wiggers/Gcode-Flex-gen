@@ -1,6 +1,4 @@
-package Impl;
-
-import java.text.DecimalFormat;
+package Framework;
 
 public class Variables {
     private static Variables var;

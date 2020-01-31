@@ -1,4 +1,4 @@
-package Impl;
+package Framework;
 
 public class Position {
     private double x,y,z;
