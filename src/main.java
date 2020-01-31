@@ -19,7 +19,7 @@ public class main {
         Writer writer = new WriterImpl();
         try {
             writer.write("print", "");
-            for (String s : builder.build(5,2,2,new Position(0,0,0.2))) {
+            for (String s : builder.build(10,2,2,new Position(0,0,0.2))) {
                 writer.append("print", s + "\n");
             }
         } catch (IOException io) {

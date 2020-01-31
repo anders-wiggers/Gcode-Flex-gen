@@ -51,7 +51,7 @@ public class SolidExtrudeImpl implements Extrude {
 
                 Position p = new Position(var.round(start.getX() + PrintConstants.NOZZLE_WIDTH * 2), start.getY(), start.getZ());
 
-                return GenerateLayer(p, length - 2*PrintConstants.NOZZLE_WIDTH, width, first);
+                return GenerateLayer(p, length - 2 * PrintConstants.NOZZLE_WIDTH, width, first);
             }
         }
 

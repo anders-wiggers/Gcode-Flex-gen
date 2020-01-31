@@ -27,20 +27,22 @@ public class FlexExtrudeImpl implements Extrude {
             speed = "F1200";
         }
 
+        double adjustedLength = Math.floor( length / (2 * PrintConstants.NOZZLE_WIDTH )) * (2 * PrintConstants.NOZZLE_WIDTH);
+
         if( width < 2 * PrintConstants.NOZZLE_WIDTH ){
-            String movment = "G1 X" + (start.getX() + length)+ " E" + ea.CalculateExtrude(length);
+            String movment = "G1 X" + (start.getX() + adjustedLength)+ " E" + ea.CalculateExtrude(adjustedLength);
             path.add(movment);
         } else {
-            if (start.getX() + length > 180) {
+            if (start.getX() + adjustedLength > 180) {
                 System.out.println("Out of bounds");
             } else {
-                String movment = "G1 X" + (start.getX() + length) + " "+ speed + " E" + ea.CalculateExtrude(length);
+                String movment = "G1 X" + (start.getX() + adjustedLength) + " "+ speed + " E" + ea.CalculateExtrude(adjustedLength);
                 path.add(movment);
 
                 movment = "G1 Y" + (start.getY() + PrintConstants.NOZZLE_WIDTH) + " E" + ea.CalculateExtrude(PrintConstants.FILAMENT_SIZE);
                 path.add(movment);
 
-                movment = "G1 X" + start.getX() + " E" + ea.CalculateExtrude(length);
+                movment = "G1 X" + start.getX() + " E" + ea.CalculateExtrude(adjustedLength);
                 path.add(movment);
 
                 movment = "G1 Y" + (start.getY() + (PrintConstants.NOZZLE_WIDTH * 2)) + " E" + ea.CalculateExtrude(PrintConstants.FILAMENT_SIZE);
