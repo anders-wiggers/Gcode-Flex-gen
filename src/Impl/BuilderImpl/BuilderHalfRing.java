@@ -32,6 +32,8 @@ public class BuilderHalfRing implements Builder {
 
         extrudeSolid = new SolidExtrudeImpl();
 
+
+
         for ( double h = 0; h < height ; h += 0.2 ) {
             if (h == 0) {
                 positions.addAll(Arrays.asList(extrudeSolid.GenerateLayer(p,length,width,true)));

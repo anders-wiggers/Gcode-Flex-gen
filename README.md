@@ -1,2 +1,2 @@
-#Gcode-flex-gen
-placeholder readme
+# Gcode Shapechange Generator
+
