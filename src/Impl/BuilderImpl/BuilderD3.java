@@ -27,7 +27,7 @@ public class BuilderD3 implements Builder {
         }
 
         double correctWidth = Math.floor( width / ( 2 * PrintConstants.FILAMENT_SIZE )) * (2 * PrintConstants.FILAMENT_SIZE);
-        double correctLength = Math.floor( length / ( 2 * PrintConstants.FILAMENT_SIZE )) * (2 * PrintConstants.FILAMENT_SIZE); //TODO FIX MATH
+        double correctLength = Math.floor( length / ( 2 * PrintConstants.FILAMENT_SIZE )); //Fixed :))
 
         positions.add(util.generateGoToPoint(p,300));
 

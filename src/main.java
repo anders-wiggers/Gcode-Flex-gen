@@ -21,7 +21,7 @@ public class main {
         Writer writer = new WriterImpl();
         try {
             writer.write("print", "");
-            for (String s :builder.build(20,2,2,new Position(0,0,0.2))) {
+            for (String s :builder.build(80,3,2,new Position(0,0,0.2))) {
             //for (String s : pf.outputPrint(20,2,0.2)) {
                 writer.append("print", s + "\n");
             }
