@@ -11,14 +11,14 @@ import Framework.interfaces.Extrude;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BuilderHalfRing implements Builder {
+public class BuilderD3 implements Builder {
     private ArrayList<String> positions = new ArrayList<>();
     private Extrude extrudeFlex;
     private Extrude extrudeSolid;
 
     private Util util = Util.getInstance();
 
-    public BuilderHalfRing(){}
+    public BuilderD3(){}
 
     @Override
     public String[] build(double length, double width, double height, Position p) {
@@ -26,21 +26,22 @@ public class BuilderHalfRing implements Builder {
             positions.add(s);
         }
 
+        double correctWidth = Math.floor( width / ( 2 * PrintConstants.FILAMENT_SIZE )) * (2 * PrintConstants.FILAMENT_SIZE);
+        double correctLength = Math.floor( length / ( 2 * PrintConstants.FILAMENT_SIZE )) * (2 * PrintConstants.FILAMENT_SIZE); //TODO FIX MATH
+
         positions.add(util.generateGoToPoint(p,300));
 
         extrudeFlex = new FlexExtrudeImpl();
 
         extrudeSolid = new SolidExtrudeImpl();
 
-
-
         for ( double h = 0; h < height ; h += 0.2 ) {
             if (h == 0) {
-                positions.addAll(Arrays.asList(extrudeSolid.GenerateLayer(p,length,width,true)));
+                positions.addAll(Arrays.asList(extrudeSolid.GenerateLayer(p,correctLength,correctWidth,true)));
             } else if (h > height/2) {
-                positions.addAll(Arrays.asList(extrudeFlex.GenerateLayer(p,length,width,true)));
+                positions.addAll(Arrays.asList(extrudeFlex.GenerateLayer(p,correctLength,correctWidth,true)));
             } else {
-                positions.addAll(Arrays.asList(extrudeSolid.GenerateLayer(p, length, width, false)));
+                positions.addAll(Arrays.asList(extrudeSolid.GenerateLayer(p,correctLength, correctWidth, false)));
             }
             p.setZ(h+0.4);
             positions.add(util.generateGoToPoint(p,1200) + " ;  END OF LOOP");

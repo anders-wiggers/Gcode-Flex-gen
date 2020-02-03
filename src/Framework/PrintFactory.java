@@ -22,7 +22,7 @@ public class PrintFactory {
         List<String> commands = new ArrayList<>();
 
         double lengthPerExtrude = length / extrudes.size();
-        double CorrectWidth = width / PrintConstants.FILAMENT_SIZE;
+        double CorrectWidth = ( width / Math.floor(( 2 * PrintConstants.FILAMENT_SIZE ))) * (2 * PrintConstants.FILAMENT_SIZE);
 
         commands = addStartCode(commands);
 
@@ -35,7 +35,7 @@ public class PrintFactory {
 
             if ( h == 0 ) {
                 for ( Extrude e : extrudes) {
-                    commands.addAll(Arrays.asList(e.GenerateLayer(baseline,lengthPerExtrude,width,true)));
+                    commands.addAll(Arrays.asList(e.GenerateLayer(baseline,lengthPerExtrude,CorrectWidth,true)));
                     baseline.setX( baseline.getX() + lengthPerExtrude );
 
                     commands.add(util.generateGoToPoint(baseline,1200));

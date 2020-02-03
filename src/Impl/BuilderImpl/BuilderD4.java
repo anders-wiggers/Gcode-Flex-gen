@@ -11,14 +11,14 @@ import Impl.ExtrudeImpl.SolidExtrudeImpl;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BuilderKvart implements Builder {
+public class BuilderD4 implements Builder {
     private ArrayList<String> positions = new ArrayList<>();
     private Extrude extrudeFlex;
     private Extrude extrudeSolid;
 
     private Util util = Util.getInstance();
 
-    public BuilderKvart(){}
+    public BuilderD4(){}
 
     @Override
     public String[] build(double length, double width, double height, Position p) {
