@@ -22,7 +22,7 @@ public class PrintFactory {
         List<String> commands = new ArrayList<>();
 
         double lengthPerExtrude = length / extrudes.size();
-        double CorrectWidth = ( width / Math.floor(( 2 * PrintConstants.FILAMENT_SIZE ))) * (2 * PrintConstants.FILAMENT_SIZE);
+        double CorrectWidth = Math.floor( width / ( 2 * PrintConstants.FILAMENT_SIZE )) * (2 * PrintConstants.FILAMENT_SIZE);
 
         commands = addStartCode(commands);
 
@@ -31,24 +31,22 @@ public class PrintFactory {
 
         for ( double h = 0; h < height ; h += 0.2 ) {
 
-            Position baseline = new Position(startPosition.getX(),startPosition.getY(),startPosition.getY());
+            Position baseline = new Position(startPosition.getX(),startPosition.getY(),startPosition.getZ());
 
             if ( h == 0 ) {
                 for ( Extrude e : extrudes) {
                     commands.addAll(Arrays.asList(e.GenerateLayer(baseline,lengthPerExtrude,CorrectWidth,true)));
                     baseline.setX( baseline.getX() + lengthPerExtrude );
 
+                    commands.add(util.generateGoToPoint(baseline,300));
+                }
+            } else {
+                for ( Extrude e : extrudes) {
+                    commands.addAll(Arrays.asList(e.GenerateLayer(baseline,lengthPerExtrude,CorrectWidth,false)));
+                    baseline.setX( baseline.getX() + lengthPerExtrude );
+
                     commands.add(util.generateGoToPoint(baseline,1200));
                 }
-
-            } else {
-
-                for ( Extrude e : extrudes) {
-
-                    commands.addAll(Arrays.asList(e.GenerateLayer(startPosition,length,width,true)));
-
-                }
-
             }
 
             startPosition.setZ(h+0.4);
