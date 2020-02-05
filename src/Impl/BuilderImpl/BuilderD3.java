@@ -27,9 +27,9 @@ public class BuilderD3 implements Builder {
         }
 
         double correctWidth = Math.floor( width / ( 2 * PrintConstants.FILAMENT_SIZE )) * (2 * PrintConstants.FILAMENT_SIZE);
-        double correctLength = Math.floor( length / ( 2 * PrintConstants.FILAMENT_SIZE )); //Fixed :)))
+        double correctLength = Math.floor( length / ( 2 * PrintConstants.FILAMENT_SIZE )) * (2 * PrintConstants.FILAMENT_SIZE); //Fixed :)))
 
-        positions.add(util.generateGoToPoint(p,300));
+        positions.add(util.generateGoToPoint(p,2000));
 
         extrudeFlex = new FlexExtrudeImpl();
 
@@ -38,8 +38,8 @@ public class BuilderD3 implements Builder {
         for ( double h = 0; h < height ; h += 0.2 ) {
             if (h == 0) {
                 positions.addAll(Arrays.asList(extrudeSolid.GenerateLayer(p,correctLength,correctWidth,true)));
-            } else if (h > height/2) {
-                positions.addAll(Arrays.asList(extrudeFlex.GenerateLayer(p,correctLength,correctWidth,true)));
+            } else if (h > height / 2) {
+                positions.addAll(Arrays.asList(extrudeFlex.GenerateLayer(p, correctLength, correctWidth, false)));
             } else {
                 positions.addAll(Arrays.asList(extrudeSolid.GenerateLayer(p,correctLength, correctWidth, false)));
             }

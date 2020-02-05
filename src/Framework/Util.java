@@ -3,6 +3,7 @@ package Framework;
 public class Util {
     private static Util var;
     private double extrudedSoFar;
+    private double height;
 
     private Util(){
         extrudedSoFar = 0;
@@ -46,5 +47,13 @@ public class Util {
 
 
         return movement;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
     }
 }

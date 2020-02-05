@@ -27,7 +27,7 @@ public class FlexExtrudeImpl implements Extrude {
             speed = "F1200";
         }
 
-        double adjustedLength = Math.floor( length / (2 * PrintConstants.NOZZLE_WIDTH )) * (2 * PrintConstants.NOZZLE_WIDTH);
+        double adjustedLength = Math.floor( length / (2 * PrintConstants.NOZZLE_WIDTH )) * (2 * PrintConstants.NOZZLE_WIDTH) + (2 * PrintConstants.NOZZLE_WIDTH);
 
         if( width < 2 * PrintConstants.NOZZLE_WIDTH ){
             String movment = "G1 X" + (start.getX() + adjustedLength)+ " E" + ea.CalculateExtrude(adjustedLength);

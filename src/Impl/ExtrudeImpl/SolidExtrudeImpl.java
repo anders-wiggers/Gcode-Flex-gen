@@ -39,19 +39,18 @@ public class SolidExtrudeImpl implements Extrude {
                 String movment = "G1 Y" + (start.getY() + width) + " "+ speed + " E" + ea.CalculateExtrude(width);
                 path.add(movment);
 
-                var.addToLength(PrintConstants.FILAMENT_SIZE);
-                movment = "G1 X" + (start.getX() + PrintConstants.NOZZLE_WIDTH) + " E" + ea.CalculateExtrude(PrintConstants.FILAMENT_SIZE);
+                movment = "G1 X" + (start.getX() + PrintConstants.NOZZLE_WIDTH * 2) + " E" + ea.CalculateExtrude(PrintConstants.FILAMENT_SIZE);
                 path.add(movment);
 
                 movment = "G1 Y" + start.getY() + " E" + ea.CalculateExtrude(width);
                 path.add(movment);
 
-                movment = "G1 X" + (start.getX() + (PrintConstants.NOZZLE_WIDTH * 2)) + " E" + ea.CalculateExtrude(PrintConstants.FILAMENT_SIZE);
+                movment = "G1 X" + (start.getX() + (PrintConstants.NOZZLE_WIDTH * 4)) + " E" + ea.CalculateExtrude(PrintConstants.FILAMENT_SIZE);
                 path.add(movment);
 
-                Position p = new Position(var.round(start.getX() + PrintConstants.NOZZLE_WIDTH * 2), start.getY(), start.getZ());
+                Position p = new Position(var.round(start.getX() + PrintConstants.NOZZLE_WIDTH * 4), start.getY(), start.getZ());
 
-                return GenerateLayer(p, length - 2 * PrintConstants.NOZZLE_WIDTH, width, first);
+                return GenerateLayer(p, length - 4 * PrintConstants.NOZZLE_WIDTH, width, first);
             }
         }
 

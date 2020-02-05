@@ -22,12 +22,17 @@ public class PrintFactory {
         List<String> commands = new ArrayList<>();
 
         double lengthPerExtrude = length / extrudes.size();
+
+        double adjustedLength = Math.floor( lengthPerExtrude / (2 * PrintConstants.NOZZLE_WIDTH )) * (2 * PrintConstants.NOZZLE_WIDTH) + (2 * PrintConstants.NOZZLE_WIDTH);
+
         double CorrectWidth = Math.floor( width / ( 2 * PrintConstants.FILAMENT_SIZE )) * (2 * PrintConstants.FILAMENT_SIZE);
 
         commands = addStartCode(commands);
 
         commands.add(util.generateGoToPoint(startPosition,300));
 
+
+        util.setHeight(height);
 
         for ( double h = 0; h < height ; h += 0.2 ) {
 
@@ -36,22 +41,20 @@ public class PrintFactory {
             if ( h == 0 ) {
                 for ( Extrude e : extrudes) {
                     commands.addAll(Arrays.asList(e.GenerateLayer(baseline,lengthPerExtrude,CorrectWidth,true)));
-                    baseline.setX( baseline.getX() + lengthPerExtrude );
+                    baseline.setX( baseline.getX() + adjustedLength + PrintConstants.FILAMENT_SIZE);
 
                     commands.add(util.generateGoToPoint(baseline,300));
                 }
             } else {
                 for ( Extrude e : extrudes) {
                     commands.addAll(Arrays.asList(e.GenerateLayer(baseline,lengthPerExtrude,CorrectWidth,false)));
-                    baseline.setX( baseline.getX() + lengthPerExtrude );
+                    baseline.setX( baseline.getX() + adjustedLength + PrintConstants.FILAMENT_SIZE);
 
                     commands.add(util.generateGoToPoint(baseline,1200));
                 }
             }
-
             startPosition.setZ(h+0.4);
             commands.add(util.generateGoToPoint(startPosition,1200) + " ;  END OF LOOP");
-
         }
 
         commands = addEndCode(commands);
